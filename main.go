@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"unsafe"
 
-	"github.com/bradford-hamilton/uintptr-demo/pkg/rand"
+	"github.com/bradford-hamilton/unsafe-demo/pkg/rand"
 )
 
 type user struct {
@@ -48,7 +48,7 @@ func main() {
 	b := []byte("josce lamson-scribner")
 	fmt.Println(b) // [106 111 115 99 101 32 108 97 109 115 111 110 45 115 99 114 105 98 110 101 114]
 
-	s := ""
+	var s string
 	hdr := (*reflect.StringHeader)(unsafe.Pointer(&s))
 	hdr.Data = uintptr(unsafe.Pointer(&b[0]))
 	hdr.Len = len(b)
