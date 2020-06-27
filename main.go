@@ -15,7 +15,7 @@ type user struct {
 
 func main() {
 	u := user{}
-	fmt.Println(u) // {name: age:0}
+	fmt.Printf("%+v\n", u) // {name: age:0}
 
 	namePtr := (*string)(unsafe.Pointer(&u))
 	fmt.Println(namePtr) // 0xc00000c080
@@ -27,7 +27,7 @@ func main() {
 
 	d := rand.NewDog("brown", 40, "mrDog") // create new dog with all private fields
 	dogNamePtr := (*string)(unsafe.Pointer(
-		uintptr(unsafe.Pointer(&d)) + unsafe.Sizeof(int(0)) + unsafe.Sizeof(string("")),
+		uintptr(unsafe.Pointer(&d)) + unsafe.Sizeof(0) + unsafe.Sizeof(""),
 	))
 
 	fmt.Println(*dogNamePtr) // mrDog
@@ -35,12 +35,12 @@ func main() {
 	fmt.Println(d) // {brown 40 someOtherDog}
 
 	pup := rand.NewPuppy("red", 80, "toby")
-	fmt.Println(pup) // {{red 80 toby} carol baskin}
+	fmt.Println(pup) // {{red 80 toby} toby}
 
 	dogNameBytes := (*[]byte)(unsafe.Pointer(
-		uintptr(unsafe.Pointer(&pup)) + uintptr(unsafe.Sizeof(rand.Dog{})),
+		uintptr(unsafe.Pointer(&pup)) + unsafe.Sizeof(rand.Dog{}),
 	))
-	fmt.Println(string(*dogNameBytes)) // carol baskin
+	fmt.Println(string(*dogNameBytes)) // toby
 
 	*dogNameBytes = []byte("bradford")
 	fmt.Println(pup) // {{red 80 toby} bradford}

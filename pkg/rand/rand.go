@@ -22,6 +22,6 @@ type Puppy struct {
 func NewPuppy(color string, height int, name string) Puppy {
 	return Puppy{
 		parent: Dog{color: color, height: height, name: name},
-		name:   "carol baskin",
+		name:   name,
 	}
 }
